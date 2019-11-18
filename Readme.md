@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Владислав Звездин](https://up.htmlacademy.ru/ecmascript/10/user/512713).
-* Наставник: `Неизвестно`.
+* Наставник: [Григорий Бушманов](https://htmlacademy.ru/profile/id1106363).
 
 ---
 

@@ -1,5 +1,5 @@
 // создаем шаблон создания/редактирвания элемента
-export const createEditItemTemplate = () => {
+export const createItemEditTemplate = () => {
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
       <header class="event__header">

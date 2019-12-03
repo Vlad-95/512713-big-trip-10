@@ -1,7 +1,7 @@
 import {createFilterTemplate} from './components/filter.js';
-import {createTripInfoTemplate} from './components/info.js';
+import {createTripInfoTemplate} from './components/trip-info.js';
 import {createItemTemplate} from './components/item.js';
-import {createEditItemTemplate} from './components/item-edit.js';
+import {createItemEditTemplate} from './components/item-edit.js';
 import {createMenuTemplate} from './components/menu.js';
 import {createSortTemplate} from './components/sort.js';
 
@@ -22,7 +22,7 @@ render(tripControls, createFilterTemplate(), `beforeend`); // рендерим �
 
 const tripEvents = document.querySelector(`.trip-events`); // обращаемся к блоку основного контента страницы
 render(tripEvents.querySelector(`h2`), createSortTemplate(), `afterend`); // рэндерим сортировку
-render(tripEvents, createEditItemTemplate(), `beforeend`);
+render(tripEvents, createItemEditTemplate(), `beforeend`);
 // рэндерим 3 элемента
 for (let i = 0; i < ITEM_COUNT; i++) {
   render(tripEvents, createItemTemplate(), `beforeend`);

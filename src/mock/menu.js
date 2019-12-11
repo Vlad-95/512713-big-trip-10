@@ -1,15 +1,14 @@
 const MenuItems = [
-    `Table`,
-    `Stats`
+  `Table`,
+  `Stats`
 ];
 
 const generateMenu = () => {
-    return MenuItems.map((it) => {
-        return {
-            item: it
-        };
-    });
+  return MenuItems.map((it) => {
+    return {
+      item: it
+    };
+  });
 };
-
 
 export {generateMenu};

@@ -1,41 +1,64 @@
-import {createFilterTemplate} from './components/filter.js';
-import {createTripInfoTemplate} from './components/trip-info.js';
-import {createItemTemplate} from './components/item.js';
-import {createItemEditTemplate} from './components/item-edit.js';
-import {createMenuTemplate} from './components/menu.js';
-import {createSortTemplate} from './components/sort.js';
-/*import {generateItems} from "./mock/item.js";*/
+import {createMenuTemplate} from "./components/menu.js";
+import {createFilterTemplate} from "./components/filter.js";
+import {createSortTemplate} from "./components/sort.js";
+import {createCardTemplate} from "./components/card-travel.js";
+import {createEditTemplate} from "./components/edit-card-travel.js";
+import {createInformationTemplate} from "./components/information.js";
+import {tripCards, getTotalPrice} from "./mock/card.js";
 import {generateMenu} from "./mock/menu.js";
-import {generateFilters} from "./mock/filter";
+import {generateFilters} from "./mock/filter.js";
+import {generateSort} from "./mock/sort";
 
-const ITEM_COUNT = 3; // количество выводимых элементов
-
-// Функция рэндера шаблонов
+// функция рендера шаблонов
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
+// обращаемся к блоку Основная информация в шапке
+const tripInformation = document.querySelector(`.trip-main__trip-info`);
+// рендерим основную ифнормацию в шапке
+render(tripInformation, createInformationTemplate(), `afterbegin`);
 
-const tripInfo = document.querySelector(`.trip-info`); // обращаемся к блоку Основная информация в шапке
-render(tripInfo, createTripInfoTemplate(), `afterbegin`); // рэндерим блок основной информации
-
-const tripControls = document.querySelector(`.trip-controls`); // обращаемся к блоку c Меню и фильтром
-
-
+// обращаемся к блоку c Меню и фильтром
+const tripControlsContainer = document.querySelector(`.trip-main__trip-controls`);
+// вызываем функцию генерации Меню
 const menu = generateMenu();
-const filters = generateFilters();
-render(tripControls.querySelector(`h2`), createMenuTemplate(menu), `afterend`); // рендерим меню
-render(tripControls, createFilterTemplate(filters), `beforeend`); // рендерим фильтры
+// рендерим Меню
+render(tripControlsContainer.querySelector(`h2`), createMenuTemplate(menu), `afterend`);
 
-const tripEvents = document.querySelector(`.trip-events`); // обращаемся к блоку основного контента страницы
-render(tripEvents.querySelector(`h2`), createSortTemplate(), `afterend`); // рэндерим сортировку
-render(tripEvents, createItemEditTemplate(), `beforeend`);
-// рэндерим 3 элемента
+// вызываем функцию генерации Фильтра
+const filters = generateFilters();
+// рендерим Фильтры
+render(tripControlsContainer, createFilterTemplate(filters), `beforeend`);
+
+// Обращаемся к блоку основного контента страницы
+const pageContent = document.querySelector(`.trip-events`);
+
+// вызываем функцию генерации сортировки
+const sort = generateSort();
+// рендерим сортировку
+render(pageContent.querySelector(`h2`), createSortTemplate(sort), `afterend`);
+
+// рендерим карточку редактирования
+render(pageContent.querySelector(`.trip-events__trip-sort`), createEditTemplate(), `afterend`);
+
+// обращаемся к списку дней путешествия
+const tripList = pageContent.querySelector(`.trip-days`);
 
 /*
-const tripItems = generateItems();
-for (let i = 0; i < ITEM_COUNT; i++) {
-  render(tripEvents, createItemTemplate(tripItems), `beforeend`);
-}
+* рендерим карточки точек маршрута
+* отсортированные по возрастанию дней
 */
+tripCards.slice().sort(
+    function (a, b) {
 
+      return a.startDate - b.startDate;
+    }
+).forEach((card, index) => {
+  render(tripList, createCardTemplate(card, index), `beforeend`);
+});
+
+// обращаемся к блоку с итоговой стоимостью
+const totalPriceContainer = document.querySelector(`.trip-info__cost-value`);
+// выводим итоговую стоимость
+totalPriceContainer.textContent = getTotalPrice().toString();

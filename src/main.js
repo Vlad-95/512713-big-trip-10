@@ -51,7 +51,7 @@ const tripList = events.querySelector(`.trip-days`);
 * отсортированные по возрастанию дней
 */
 tripCards.slice().sort((firstNumber, secondNumber) => {
-    return firstNumber.startDate - secondNumber.startDate;
+  return firstNumber.startDate - secondNumber.startDate;
 }).forEach((card, index) => {
   render(tripList, createCardTemplate(card, index), `beforeend`);
 });

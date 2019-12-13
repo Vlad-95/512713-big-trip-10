@@ -9,13 +9,15 @@ import {generateMenu} from "./mock/menu.js";
 import {generateFilters} from "./mock/filter.js";
 import {generateSort} from "./mock/sort";
 
+// обращаемся к блоку Основная информация в шапке
+const tripInformation = document.querySelector(`.trip-main__trip-info`);
+
+
 // функция рендера шаблонов
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
-// обращаемся к блоку Основная информация в шапке
-const tripInformation = document.querySelector(`.trip-main__trip-info`);
 // рендерим основную ифнормацию в шапке
 render(tripInformation, createInformationTemplate(), `afterbegin`);
 
@@ -31,30 +33,26 @@ const filters = generateFilters();
 // рендерим Фильтры
 render(tripControlsContainer, createFilterTemplate(filters), `beforeend`);
 
-// Обращаемся к блоку основного контента страницы
-const pageContent = document.querySelector(`.trip-events`);
 
+// Обращаемся к блоку основного контента страницы
+const events = document.querySelector(`.trip-events`);
 // вызываем функцию генерации сортировки
 const sort = generateSort();
 // рендерим сортировку
-render(pageContent.querySelector(`h2`), createSortTemplate(sort), `afterend`);
+render(events.querySelector(`.visually-hidden`), createSortTemplate(sort), `afterend`);
 
 // рендерим карточку редактирования
-render(pageContent.querySelector(`.trip-events__trip-sort`), createEditTemplate(), `afterend`);
+render(events.querySelector(`.trip-events__trip-sort`), createEditTemplate(), `afterend`);
 
 // обращаемся к списку дней путешествия
-const tripList = pageContent.querySelector(`.trip-days`);
-
+const tripList = events.querySelector(`.trip-days`);
 /*
 * рендерим карточки точек маршрута
 * отсортированные по возрастанию дней
 */
-tripCards.slice().sort(
-    function (a, b) {
-
-      return a.startDate - b.startDate;
-    }
-).forEach((card, index) => {
+tripCards.slice().sort((firstNumber, secondNumber) => {
+    return firstNumber.startDate - secondNumber.startDate;
+}).forEach((card, index) => {
   render(tripList, createCardTemplate(card, index), `beforeend`);
 });
 

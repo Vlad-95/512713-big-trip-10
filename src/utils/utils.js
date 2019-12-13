@@ -1,4 +1,4 @@
-import {MONTH_SHORT_NAMES} from '../const.js';
+import {monthShortName} from '../const.js';
 
 const DAYS_IN_WEEK = 7;
 const HOURS_IN_DAY = 24;
@@ -38,7 +38,7 @@ const formatTextDate = (date) => {
   const day = textdate.getDate();
   const month = textdate.getMonth();
 
-  return `${MONTH_SHORT_NAMES[month]} ${day}`;
+  return `${monthShortName[month]} ${day}`;
 };
 
 const formatTime = (date) => {
@@ -50,4 +50,10 @@ const formatTime = (date) => {
   return `${hours}:${minutes}`;
 };
 
-export {getRandomElement, getRandomNumber, getRandomBoolean, getRandomDate, formatDate, formatTextDate, formatTime};
+export {getRandomElement};
+export {getRandomNumber};
+export {getRandomBoolean};
+export {getRandomDate};
+export {formatDate};
+export {formatTextDate};
+export {formatTime};

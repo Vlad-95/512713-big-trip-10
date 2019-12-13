@@ -1,11 +1,13 @@
-import {getRandomElement, getRandomNumber, getRandomDate} from '../utils/utils';
+import {getRandomElement} from '../utils/utils.js';
+import {getRandomNumber} from "../utils/utils.js";
+import {getRandomDate} from "../utils/utils.js";
 
 const MAX_PRICE = 2000;
 const MAX_PICTURE = 5;
 const MAX_EXTRA = 2;
 const TRIP_COUNT = 3;
 
-const Types = [
+const types = [
   `bus`,
   `check-in`,
   `drive`,
@@ -19,13 +21,13 @@ const Types = [
   `trip`
 ];
 
-const Cities = [
+const cities = [
   `Amsterdam`,
   `Geneva`,
   `London`
 ];
 
-const travelDescription = [
+const travelDescriptions = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
   `Cras aliquet varius magna, non porta ligula feugiat eget.`,
   `Fusce tristique felis at fermentum pharetra.`,
@@ -70,11 +72,11 @@ const fillPhotos = (count) => {
     .map(getRandomPhoto);
 };
 
-const randomDescription = () => {
+const generateRandomDescription = () => {
   let newDescription = [];
 
   for (let i = 0; i < getRandomNumber(1, 3); i++) {
-    newDescription.push(getRandomElement(travelDescription));
+    newDescription.push(getRandomElement(travelDescriptions));
   }
 
   return newDescription.join(` `);
@@ -85,10 +87,10 @@ const generateTravelCard = () => {
   let secondValue = getRandomDate();
 
   return {
-    type: getRandomElement(Types),
-    city: getRandomElement(Cities),
+    type: getRandomElement(types),
+    city: getRandomElement(cities),
     img: fillPhotos(MAX_PICTURE),
-    description: randomDescription(),
+    description: generateRandomDescription(),
     startDate: Math.min(firstValue, secondValue),
     endDate: Math.max(firstValue, secondValue),
     startTime: Math.min(firstValue, secondValue),
@@ -111,12 +113,18 @@ const tripCards = generateTravelCards(TRIP_COUNT);
 const getTotalPrice = () => {
   let totalPrice = 0;
   for (let i = 0; i < tripCards.length; i++) {
-    let card = tripCards[i];
-
-    totalPrice = totalPrice + card.price;
+    totalPrice = totalPrice + tripCards[i].price;
   }
 
   return totalPrice;
 };
 
-export {generateTravelCard, generateTravelCards, fillPhotos, tripCard, tripCards, extraOffers, MAX_EXTRA, getTotalPrice, getRandomNumber};
+export {generateTravelCard};
+export {generateTravelCards};
+export {fillPhotos};
+export {tripCard};
+export {tripCards};
+export {extraOffers};
+export {MAX_EXTRA};
+export {getTotalPrice};
+export {getRandomNumber};

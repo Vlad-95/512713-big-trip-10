@@ -1,13 +1,13 @@
-const FilterItems = [
+const filters = [
   `Everything`,
   `Future`,
   `Past`
 ];
 
 const generateFilters = () => {
-  return FilterItems.map((it) => {
+  return filters.map((filter) => {
     return {
-      item: it
+      item: filter
     };
   });
 };

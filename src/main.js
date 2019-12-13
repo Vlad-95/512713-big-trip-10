@@ -41,8 +41,7 @@ const sort = generateSort();
 // рендерим сортировку
 render(events.querySelector(`.visually-hidden`), createSortTemplate(sort), `afterend`);
 
-// рендерим карточку редактирования
-render(events.querySelector(`.trip-events__trip-sort`), createEditTemplate(), `afterend`);
+
 
 // обращаемся к списку дней путешествия
 const tripList = events.querySelector(`.trip-days`);
@@ -55,6 +54,9 @@ tripCards.slice().sort((firstNumber, secondNumber) => {
 }).forEach((card, index) => {
   render(tripList, createCardTemplate(card, index), `beforeend`);
 });
+
+// рендерим карточку редактирования
+render(tripList.querySelector(`.trip-events__list`), createEditTemplate(), `afterbegin`);
 
 // обращаемся к блоку с итоговой стоимостью
 const totalPriceContainer = document.querySelector(`.trip-info__cost-value`);

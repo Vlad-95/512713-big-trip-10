@@ -1,25 +1,20 @@
-import {monthShortName} from '../const.js';
+import {monthName} from '../const.js';
 
 const DAYS_IN_WEEK = 7;
 const HOURS_IN_DAY = 24;
-const SEC_IN_MIN = 3600;
-const MS_IN_SEC = 1000;
+const SECONDS_IN_MINUNTE = 3600;
+const MSSECONDS_IN_SECOND = 1000;
 
-
-const getRandomElement = (array) => {
-  return array[Math.floor(Math.random() * array.length)];
+const getRandomElement = (element) => {
+  return element[Math.floor(Math.random() * element.length)];
 };
 
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getRandomBoolean = () => {
-  return Math.random() > 0.5;
-};
-
 const getRandomDate = () => {
-  return Date.now() + 1 + Math.floor(Math.random() * (DAYS_IN_WEEK * HOURS_IN_DAY * SEC_IN_MIN * MS_IN_SEC));
+  return Date.now() + 1 + Math.floor(Math.random() * (DAYS_IN_WEEK * HOURS_IN_DAY * SECONDS_IN_MINUNTE * MSSECONDS_IN_SECOND));
 };
 
 const formatDate = (date) => {
@@ -38,7 +33,7 @@ const formatTextDate = (date) => {
   const day = textdate.getDate();
   const month = textdate.getMonth();
 
-  return `${monthShortName[month]} ${day}`;
+  return `${monthName[month]} ${day}`;
 };
 
 const formatTime = (date) => {
@@ -50,10 +45,11 @@ const formatTime = (date) => {
   return `${hours}:${minutes}`;
 };
 
-export {getRandomElement};
-export {getRandomNumber};
-export {getRandomBoolean};
-export {getRandomDate};
-export {formatDate};
-export {formatTextDate};
-export {formatTime};
+export {
+  getRandomElement,
+  getRandomNumber,
+  getRandomDate,
+  formatDate,
+  formatTextDate,
+  formatTime
+};

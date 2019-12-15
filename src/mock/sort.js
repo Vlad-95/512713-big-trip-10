@@ -1,4 +1,4 @@
-const SortItems = [
+const sortItems = [
   `event`,
   `time`,
   `price`,
@@ -6,7 +6,7 @@ const SortItems = [
 ];
 
 const generateSort = () => {
-  return SortItems.map((it) => {
+  return sortItems.map((it) => {
     return {
       item: it
     };

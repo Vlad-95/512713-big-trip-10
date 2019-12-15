@@ -1,6 +1,6 @@
 import {getRandomElement} from '../utils/utils.js';
-import {getRandomNumber} from "../utils/utils.js";
-import {getRandomDate} from "../utils/utils.js";
+import {getRandomNumber} from '../utils/utils.js';
+import {getRandomDate} from '../utils/utils.js';
 
 const MAX_PRICE = 2000;
 const MAX_PICTURE = 5;
@@ -119,12 +119,14 @@ const getTotalPrice = () => {
   return totalPrice;
 };
 
-export {generateTravelCard};
-export {generateTravelCards};
-export {fillPhotos};
-export {tripCard};
-export {tripCards};
-export {extraOffers};
-export {MAX_EXTRA};
-export {getTotalPrice};
-export {getRandomNumber};
+export {
+  generateTravelCard,
+  generateTravelCards,
+  fillPhotos,
+  tripCard,
+  tripCards,
+  extraOffers,
+  MAX_EXTRA,
+  getTotalPrice,
+  getRandomNumber
+};

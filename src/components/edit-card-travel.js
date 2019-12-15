@@ -1,5 +1,11 @@
 import {tripCard} from '../mock/card.js';
-import {formatDate} from "../utils/utils";
+import {formatDate} from '../utils/utils.js';
+
+const createPhotoItem = (photoURL) => {
+  return `<img class="event__photo" src="${photoURL}" alt="Event photo">`;
+};
+
+const photoItem = tripCard.img.map((it) => createPhotoItem(it)).join(`\n`);
 
 export const createEditTemplate = () => {
   return (
@@ -143,12 +149,8 @@ export const createEditTemplate = () => {
           <h3 class="event__section-title  event__section-title--destination">Destination</h3>
           <p class="event__destination-description">${tripCard.description}</p>
           <div class="event__photos-container">
-            <div class="event__photos-tape">
-              <img class="event__photo" src="${tripCard.img[0]}" alt="Event photo">
-              <img class="event__photo" src="${tripCard.img[1]}" alt="Event photo">
-              <img class="event__photo" src="${tripCard.img[2]}" alt="Event photo">
-              <img class="event__photo" src="${tripCard.img[3]}" alt="Event photo">
-              <img class="event__photo" src="${tripCard.img[4]}" alt="Event photo">
+            <div class="event__photos-tape"> 
+              ${photoItem}
             </div>
           </div>
         </section>

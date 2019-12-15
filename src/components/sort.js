@@ -9,7 +9,7 @@ const createSortItem = (sort, isChecked) => {
 };
 
 export const createSortTemplate = (sort) => {
-  const sortItem = sort.map((it, i) => createSortItem(it, i === 0)).join(`\n`);
+  const sortItem = sort.map((it, i) => createSortItem(it, !i)).join(`\n`);
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day"></span>

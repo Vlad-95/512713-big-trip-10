@@ -1,13 +1,13 @@
-import {createMenuTemplate} from "./components/menu.js";
-import {createFilterTemplate} from "./components/filter.js";
-import {createSortTemplate} from "./components/sort.js";
-import {createCardTemplate} from "./components/card-travel.js";
-import {createEditTemplate} from "./components/edit-card-travel.js";
-import {createInformationTemplate} from "./components/information.js";
-import {tripCards, getTotalPrice} from "./mock/card.js";
-import {generateMenu} from "./mock/menu.js";
-import {generateFilters} from "./mock/filter.js";
-import {generateSort} from "./mock/sort";
+import {createMenuTemplate} from './components/menu.js';
+import {createFilterTemplate} from './components/filter.js';
+import {createSortTemplate} from './components/sort.js';
+import {createCardTemplate} from './components/card-travel.js';
+import {createEditTemplate} from './components/edit-card-travel.js';
+import {createInformationTemplate} from './components/information.js';
+import {tripCards, getTotalPrice} from './mock/card.js';
+import {generateMenu} from './mock/menu.js';
+import {generateFilters} from './mock/filter.js';
+import {generateSort} from './mock/sort';
 
 // обращаемся к блоку Основная информация в шапке
 const tripInformation = document.querySelector(`.trip-main__trip-info`);
@@ -40,8 +40,6 @@ const events = document.querySelector(`.trip-events`);
 const sort = generateSort();
 // рендерим сортировку
 render(events.querySelector(`.visually-hidden`), createSortTemplate(sort), `afterend`);
-
-
 
 // обращаемся к списку дней путешествия
 const tripList = events.querySelector(`.trip-days`);

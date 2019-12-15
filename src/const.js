@@ -1,4 +1,4 @@
-export const monthShortName = [
+export const monthName = [
   `Jan`,
   `Feb`,
   `Mar`,

@@ -7,7 +7,7 @@ import {createInformationTemplate} from './components/information.js';
 import {tripCards, getTotalPrice} from './mock/card.js';
 import {generateMenu} from './mock/menu.js';
 import {generateFilters} from './mock/filter.js';
-import {generateSort} from './mock/sort';
+import {getSortedItems} from './mock/sort';
 
 // обращаемся к блоку Основная информация в шапке
 const tripInformation = document.querySelector(`.trip-main__trip-info`);
@@ -26,7 +26,7 @@ const tripControlsContainer = document.querySelector(`.trip-main__trip-controls`
 // вызываем функцию генерации Меню
 const menu = generateMenu();
 // рендерим Меню
-render(tripControlsContainer.querySelector(`h2`), createMenuTemplate(menu), `afterend`);
+render(tripControlsContainer.querySelector(`.visually-hidden`), createMenuTemplate(menu), `afterend`);
 
 // вызываем функцию генерации Фильтра
 const filters = generateFilters();
@@ -37,7 +37,7 @@ render(tripControlsContainer, createFilterTemplate(filters), `beforeend`);
 // Обращаемся к блоку основного контента страницы
 const events = document.querySelector(`.trip-events`);
 // вызываем функцию генерации сортировки
-const sort = generateSort();
+const sort = getSortedItems();
 // рендерим сортировку
 render(events.querySelector(`.visually-hidden`), createSortTemplate(sort), `afterend`);
 

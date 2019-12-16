@@ -1,4 +1,4 @@
-import {monthName} from '../const.js';
+import {monthNames} from '../const.js';
 
 const DAYS_IN_WEEK = 7;
 const HOURS_IN_DAY = 24;
@@ -33,7 +33,7 @@ const formatTextDate = (date) => {
   const day = textdate.getDate();
   const month = textdate.getMonth();
 
-  return `${monthName[month]} ${day}`;
+  return `${monthNames[month]} ${day}`;
 };
 
 const formatTime = (date) => {

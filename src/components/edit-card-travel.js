@@ -5,7 +5,7 @@ const createPhotoItem = (photoURL) => {
   return `<img class="event__photo" src="${photoURL}" alt="Event photo">`;
 };
 
-const photoItem = tripCard.img.map((it) => createPhotoItem(it)).join(`\n`);
+const photoItems = tripCard.img.map((it) => createPhotoItem(it)).join(`\n`);
 
 export const createEditTemplate = () => {
   return (
@@ -150,7 +150,7 @@ export const createEditTemplate = () => {
           <p class="event__destination-description">${tripCard.description}</p>
           <div class="event__photos-container">
             <div class="event__photos-tape"> 
-              ${photoItem}
+              ${photoItems}
             </div>
           </div>
         </section>

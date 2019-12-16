@@ -1,4 +1,4 @@
-export const monthName = [
+export const monthNames = [
   `Jan`,
   `Feb`,
   `Mar`,

@@ -1,16 +1,16 @@
-const sortItems = [
+const sortedItems = [
   `event`,
   `time`,
   `price`,
   `offers`,
 ];
 
-const generateSort = () => {
-  return sortItems.map((it) => {
+const getSortedItems = () => {
+  return sortedItems.map((it) => {
     return {
       item: it
     };
   });
 };
 
-export {generateSort};
+export {getSortedItems};

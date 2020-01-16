@@ -127,6 +127,7 @@ export {
   tripCards,
   extraOffers,
   MAX_EXTRA,
+  TRIP_COUNT,
   getTotalPrice,
   getRandomNumber
 };

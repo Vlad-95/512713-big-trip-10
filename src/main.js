@@ -43,14 +43,34 @@ const tripList = events.querySelector(`.trip-days`);
 * рендерим карточки точек маршрута
 * отсортированные по возрастанию дней
 */
+
+const renderCard = (card, index) => {
+  const cardComponent = new CardTravelComponent(card, index);
+  const cardEditComponent = new EditCardTravelComponent();
+
+  const editButtons = cardComponent.getElement().querySelectorAll(`.event__rollup-btn`);
+  editButtons.forEach((button) => {
+    button.addEventListener(`click`, () => {
+      tripList.replaceChild(cardEditComponent.getElement(), cardComponent.getElement());
+    });
+  });
+
+  const cardEdit = cardEditComponent.getElement();
+  cardEdit.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+
+    tripList.replaceChild(cardComponent.getElement(), cardEditComponent.getElement());
+  });
+
+  render(tripList, cardComponent.getElement(), RenderPosition.BEFOREEND);
+
+};
+
 tripCards.slice().sort((firstNumber, secondNumber) => {
   return firstNumber.startDate - secondNumber.startDate;
 }).forEach((card, index) => {
-  render(tripList, new CardTravelComponent(card, index).getElement(), RenderPosition.BEFOREEND);
+  renderCard(card, index);
 });
-
-// рендерим карточку редактирования
-render(tripList.querySelector(`.trip-events__list`), new EditCardTravelComponent().getElement(), RenderPosition.AFTERBEGIN);
 
 // обращаемся к блоку с итоговой стоимостью
 const totalPriceContainer = document.querySelector(`.trip-info__cost-value`);

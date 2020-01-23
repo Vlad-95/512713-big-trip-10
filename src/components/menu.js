@@ -1,3 +1,5 @@
+import {createElement} from '../utils/utils.js';
+
 const createMenuItem = (menu) => {
   const {item} = menu;
   return (
@@ -5,7 +7,7 @@ const createMenuItem = (menu) => {
   );
 };
 
-export const createMenuTemplate = (menu) => {
+const createMenuTemplate = (menu) => {
   const menuItem = menu.map((it, i) => createMenuItem(it, !i)).join(`\n`);
   return (
     `<nav class="trip-controls__trip-tabs  trip-tabs">
@@ -13,3 +15,26 @@ export const createMenuTemplate = (menu) => {
     </nav>`
   );
 };
+
+export default class Menu {
+  constructor(menu) {
+    this._menu = menu;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createMenuTemplate(this._menu);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

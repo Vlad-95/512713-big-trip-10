@@ -1,16 +1,18 @@
+import {createElement} from '../utils/utils.js';
+
 const createFilterItem = (filter, isChecked) => {
   const {item} = filter;
 
   return (
     `<div class="trip-filters__filter">
-        <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" ${isChecked ? `checked` : ``} >
-        <label class="trip-filters__filter-label" for="filter-everything">${item}</label>
+        <input id="filter-${item}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${item}" ${isChecked ? `checked` : ``} >
+        <label class="trip-filters__filter-label" for="filter-${item}">${item}</label>
     </div>`
   );
 };
 
 // создаем шаблон фильтра
-export const createFilterTemplate = (filters) => {
+const createFilterTemplate = (filters) => {
   const filtersItem = filters.map((it, i) => createFilterItem(it, !i)).join(`\n`);
 
   return (
@@ -20,3 +22,26 @@ export const createFilterTemplate = (filters) => {
     </form>`
   );
 };
+
+export default class Filter {
+  constructor(filter) {
+    this._filter = filter;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilterTemplate(this._filter);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

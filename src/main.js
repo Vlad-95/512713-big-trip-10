@@ -1,60 +1,76 @@
-import {createMenuTemplate} from './components/menu.js';
-import {createFilterTemplate} from './components/filter.js';
-import {createSortTemplate} from './components/sort.js';
-import {createCardTemplate} from './components/card-travel.js';
-import {createEditTemplate} from './components/edit-card-travel.js';
-import {createInformationTemplate} from './components/information.js';
+import CardTravelComponent from './components/card-travel.js';
+import EditCardTravelComponent from './components/edit-card-travel.js';
+import FilterComponent from './components/filter.js';
+import InformationComponent from './components/information.js';
+import MenuComponent from './components/menu.js';
+import SortComponent from './components/sort.js';
+import CardsListComponent from './components/list.js';
 import {tripCards, getTotalPrice} from './mock/card.js';
 import {generateMenu} from './mock/menu.js';
 import {generateFilters} from './mock/filter.js';
-import {generateSort} from './mock/sort';
-
+import {getSortedItems} from './mock/sort';
+import {render, RenderPosition} from './utils/utils.js';
 // обращаемся к блоку Основная информация в шапке
 const tripInformation = document.querySelector(`.trip-main__trip-info`);
 
-
-// функция рендера шаблонов
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 // рендерим основную ифнормацию в шапке
-render(tripInformation, createInformationTemplate(), `afterbegin`);
+render(tripInformation, new InformationComponent().getElement(), RenderPosition.AFTERBEGIN);
 
 // обращаемся к блоку c Меню и фильтром
 const tripControlsContainer = document.querySelector(`.trip-main__trip-controls`);
 // вызываем функцию генерации Меню
 const menu = generateMenu();
 // рендерим Меню
-render(tripControlsContainer.querySelector(`h2`), createMenuTemplate(menu), `afterend`);
+render(tripControlsContainer, new MenuComponent(menu).getElement(), RenderPosition.AFTERBEGIN);
 
 // вызываем функцию генерации Фильтра
 const filters = generateFilters();
 // рендерим Фильтры
-render(tripControlsContainer, createFilterTemplate(filters), `beforeend`);
+render(tripControlsContainer, new FilterComponent(filters).getElement(), RenderPosition.BEFOREEND);
 
 
 // Обращаемся к блоку основного контента страницы
 const events = document.querySelector(`.trip-events`);
 // вызываем функцию генерации сортировки
-const sort = generateSort();
+const sort = getSortedItems();
 // рендерим сортировку
-render(events.querySelector(`.visually-hidden`), createSortTemplate(sort), `afterend`);
-
+render(events, new SortComponent(sort).getElement(), RenderPosition.AFTERBEGIN);
+// рендерим контейнер для списка точек маршрута
+render(events, new CardsListComponent().getElement(), RenderPosition.BEFOREEND);
 // обращаемся к списку дней путешествия
 const tripList = events.querySelector(`.trip-days`);
 /*
 * рендерим карточки точек маршрута
 * отсортированные по возрастанию дней
 */
+
+const renderCard = (card, index) => {
+  const cardComponent = new CardTravelComponent(card, index);
+  const cardEditComponent = new EditCardTravelComponent();
+
+  const editButtons = cardComponent.getElement().querySelectorAll(`.event__rollup-btn`);
+  editButtons.forEach((button) => {
+    button.addEventListener(`click`, () => {
+      tripList.replaceChild(cardEditComponent.getElement(), cardComponent.getElement());
+    });
+  });
+
+  const cardEdit = cardEditComponent.getElement();
+  cardEdit.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+
+    tripList.replaceChild(cardComponent.getElement(), cardEditComponent.getElement());
+  });
+
+  render(tripList, cardComponent.getElement(), RenderPosition.BEFOREEND);
+
+};
+
 tripCards.slice().sort((firstNumber, secondNumber) => {
   return firstNumber.startDate - secondNumber.startDate;
 }).forEach((card, index) => {
-  render(tripList, createCardTemplate(card, index), `beforeend`);
+  renderCard(card, index);
 });
-
-// рендерим карточку редактирования
-render(tripList.querySelector(`.trip-events__list`), createEditTemplate(), `afterbegin`);
 
 // обращаемся к блоку с итоговой стоимостью
 const totalPriceContainer = document.querySelector(`.trip-info__cost-value`);

@@ -1,13 +1,14 @@
 import {tripCard} from '../mock/card.js';
 import {formatDate} from '../utils/utils.js';
+import {createElement} from '../utils/utils.js';
 
 const createPhotoItem = (photoURL) => {
   return `<img class="event__photo" src="${photoURL}" alt="Event photo">`;
 };
 
-const photoItem = tripCard.img.map((it) => createPhotoItem(it)).join(`\n`);
+const photoItems = tripCard.img.map((it) => createPhotoItem(it)).join(`\n`);
 
-export const createEditTemplate = () => {
+const createEditTemplate = () => {
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
       <header class="event__header">
@@ -150,7 +151,7 @@ export const createEditTemplate = () => {
           <p class="event__destination-description">${tripCard.description}</p>
           <div class="event__photos-container">
             <div class="event__photos-tape"> 
-              ${photoItem}
+              ${photoItems}
             </div>
           </div>
         </section>
@@ -158,3 +159,26 @@ export const createEditTemplate = () => {
     </form>`
   );
 };
+
+
+export default class EditCard {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

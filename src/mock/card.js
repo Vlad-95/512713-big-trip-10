@@ -113,7 +113,7 @@ const tripCards = generateTravelCards(TRIP_COUNT);
 const getTotalPrice = () => {
   let totalPrice = 0;
   for (let i = 0; i < tripCards.length; i++) {
-    totalPrice = totalPrice + tripCards[i].price;
+    totalPrice += tripCards[i].price;
   }
 
   return totalPrice;
@@ -127,6 +127,7 @@ export {
   tripCards,
   extraOffers,
   MAX_EXTRA,
+  TRIP_COUNT,
   getTotalPrice,
   getRandomNumber
 };

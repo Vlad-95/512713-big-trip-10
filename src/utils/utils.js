@@ -7,6 +7,7 @@ const MSSECONDS_IN_SECOND = 1000;
 
 const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
+  AFTEREND: `afterend`,
   BEFOREEND: `beforeend`
 };
 
@@ -22,7 +23,13 @@ const render = (container, element, place) => {
     case RenderPosition.AFTERBEGIN:
       container.prepend(element);
       break;
+    case RenderPosition.AFTEREND:
+      container.after(element);
+      break;
     case RenderPosition.BEFOREEND:
+      container.append(element);
+      break;
+    default:
       container.append(element);
       break;
   }

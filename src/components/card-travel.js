@@ -3,9 +3,6 @@ import {formatTime} from '../utils/utils.js';
 import {formatDate} from '../utils/utils.js';
 import {formatTextDate} from '../utils/utils.js';
 
-
-
-
 const createCardTemplate = (card, index) => {
   return (
     `<li class="trip-days__item  day">
@@ -49,43 +46,19 @@ const createCardTemplate = (card, index) => {
   );
 };
 
-export default class Card extends AbstractComponent{
-    constructor(card, index) {
-        super();
-
-        this._card = card;
-        this._index = index;
-    }
-
-    getTemplate() {
-        return createCardTemplate(this._card, this._index);
-    }
-};
-
-
-/*
-export default class Card {
+export default class Card extends AbstractComponent {
   constructor(card, index) {
+    super();
+
     this._card = card;
     this._index = index;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createCardTemplate(this._card, this._index);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setEditButtonClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, handler);
   }
 }
-*/

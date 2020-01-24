@@ -162,30 +162,12 @@ const createEditTemplate = () => {
 };
 
 
-export default class EditCard extends AbstractComponent{
-    getTemplate() {
-        return createEditTemplate();
-    }
-};
-
-/*export default class EditCard {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EditCard extends AbstractComponent {
   getTemplate() {
     return createEditTemplate();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  setFormSubmitHandler(handler) {
+    this.getElement().addEventListener(`submit`, handler);
   }
-
-  removeElement() {
-    this._element = null;
-  }
-}*/
+}

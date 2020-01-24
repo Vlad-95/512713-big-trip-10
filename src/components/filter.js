@@ -1,47 +1,28 @@
-import {createElement} from '../utils/utils.js';
-
-const createFilterItem = (filter, isChecked) => {
-  const {item} = filter;
-
-  return (
-    `<div class="trip-filters__filter">
-        <input id="filter-${item}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${item}" ${isChecked ? `checked` : ``} >
-        <label class="trip-filters__filter-label" for="filter-${item}">${item}</label>
-    </div>`
-  );
-};
+import AbstractComponent from './abstract-component';
 
 // создаем шаблон фильтра
-const createFilterTemplate = (filters) => {
-  const filtersItem = filters.map((it, i) => createFilterItem(it, !i)).join(`\n`);
-
+const createFilterTemplate = () => {
   return (
     `<form class="trip-filters" action="#" method="get">
-      ${filtersItem}
+      <div class="trip-filters__filter">
+        <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" checked>
+        <label class="trip-filters__filter-label" for="filter-everything">Everything</label>
+      </div>
+      <div class="trip-filters__filter">
+        <input id="filter-future" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="future">
+        <label class="trip-filters__filter-label" for="filter-future">Future</label>
+      </div>
+      <div class="trip-filters__filter">
+        <input id="filter-past" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="past">
+        <label class="trip-filters__filter-label" for="filter-past">Past</label>
+      </div>
       <button class="visually-hidden" type="submit">Accept filter</button>
     </form>`
   );
 };
 
-export default class Filter {
-  constructor(filter) {
-    this._filter = filter;
-    this._element = null;
-  }
-
+export default class Filter extends AbstractComponent {
   getTemplate() {
-    return createFilterTemplate(this._filter);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+    return createFilterTemplate();
   }
 }

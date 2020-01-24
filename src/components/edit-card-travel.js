@@ -1,6 +1,7 @@
 import {tripCard} from '../mock/card.js';
 import {formatDate} from '../utils/utils.js';
-import {createElement} from '../utils/utils.js';
+import AbstractComponent from "./abstract-component";
+
 
 const createPhotoItem = (photoURL) => {
   return `<img class="event__photo" src="${photoURL}" alt="Event photo">`;
@@ -161,24 +162,12 @@ const createEditTemplate = () => {
 };
 
 
-export default class EditCard {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EditCard extends AbstractComponent {
   getTemplate() {
     return createEditTemplate();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setFormSubmitHandler(handler) {
+    this.getElement().addEventListener(`submit`, handler);
   }
 }

@@ -1,22 +1,22 @@
-import {createElement} from '../utils/utils.js';
 
-const createMenuItem = (menu) => {
-  const {item} = menu;
-  return (
-    `<a class="trip-tabs__btn  trip-tabs__btn--active" href="#">${item}</a>`
-  );
-};
+import AbstractComponent from "./abstract-component";
 
-const createMenuTemplate = (menu) => {
-  const menuItem = menu.map((it, i) => createMenuItem(it, !i)).join(`\n`);
+const createMenuTemplate = () => {
   return (
     `<nav class="trip-controls__trip-tabs  trip-tabs">
-       ${menuItem}
+      <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
+      <a class="trip-tabs__btn" href="#">Stats</a>
     </nav>`
   );
 };
 
-export default class Menu {
+export default class Menu extends AbstractComponent{
+    getTemplate() {
+        return createMenuTemplate();
+    }
+};
+
+/*export default class Menu {
   constructor(menu) {
     this._menu = menu;
     this._element = null;
@@ -37,4 +37,4 @@ export default class Menu {
   removeElement() {
     this._element = null;
   }
-}
+}*/

@@ -1,7 +1,10 @@
+import AbstractComponent from "./abstract-component";
 import {formatTime} from '../utils/utils.js';
 import {formatDate} from '../utils/utils.js';
 import {formatTextDate} from '../utils/utils.js';
-import {createElement} from '../utils/utils.js';
+
+
+
 
 const createCardTemplate = (card, index) => {
   return (
@@ -46,6 +49,21 @@ const createCardTemplate = (card, index) => {
   );
 };
 
+export default class Card extends AbstractComponent{
+    constructor(card, index) {
+        super();
+
+        this._card = card;
+        this._index = index;
+    }
+
+    getTemplate() {
+        return createCardTemplate(this._card, this._index);
+    }
+};
+
+
+/*
 export default class Card {
   constructor(card, index) {
     this._card = card;
@@ -70,3 +88,4 @@ export default class Card {
     this._element = null;
   }
 }
+*/

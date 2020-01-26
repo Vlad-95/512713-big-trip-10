@@ -1,9 +1,10 @@
 import AbstractComponent from "./abstract-component";
-import {formatTime} from '../utils/utils.js';
-import {formatDate} from '../utils/utils.js';
-import {formatTextDate} from '../utils/utils.js';
+import {formatTime, formatTextDate, getDuration, formatDate} from "../utils/data-time";
 
 const createCardTemplate = (card, index) => {
+
+  const duration = getDuration(card.startDate, card.endDate);
+
   return (
     `<li class="trip-days__item  day">
       <div class="day__info">
@@ -23,7 +24,7 @@ const createCardTemplate = (card, index) => {
                 &mdash;
                 <time class="event__end-time" datetime="${formatDate(card.endDate)} ${formatTime(card.endTime)}">${formatTime(card.endTime)}</time>
               </p>
-              <p class="event__duration"> 1H 30M</p>
+              <p class="event__duration">${duration}</p>
             </div>
             <p class="event__price">
               &euro;&nbsp;<span class="event__price-value">${card.price}</span>
@@ -59,6 +60,6 @@ export default class Card extends AbstractComponent {
   }
 
   setEditButtonClickHandler(handler) {
-    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, handler);
+    this.getElement().querySelector('.event__rollup-btn').addEventListener(`click`, handler);
   }
 }

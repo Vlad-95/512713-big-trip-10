@@ -1,9 +1,9 @@
-import {monthNames} from '../const.js';
-
-const DAYS_IN_WEEK = 7;
-const HOURS_IN_DAY = 24;
-const SECONDS_IN_MINUNTE = 3600;
-const MSSECONDS_IN_SECOND = 1000;
+const TimesValues = {
+  DAYS_IN_WEEK: 7,
+  HOURS_IN_DAY: 24,
+  SECONDS_IN_MINUNTE: 3600,
+  MSSECONDS_IN_SECOND: 1000
+};
 
 const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
@@ -11,12 +11,22 @@ const RenderPosition = {
   BEFOREEND: `beforeend`
 };
 
-const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
+const getRandomElement = (element) => {
+  return element[Math.floor(Math.random() * element.length)];
 };
+
+const getRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getRandomBoolean = () => {
+  return Math.random() > 0.5;
+};
+
+const getRandomDate = () => {
+  return Date.now() + 1 + Math.floor(Math.random() * (TimesValues.DAYS_IN_WEEK * TimesValues.HOURS_IN_DAY * TimesValues.SECONDS_IN_MINUNTE * TimesValues.MSSECONDS_IN_SECOND));
+};
+
 
 const render = (container, element, place) => {
   switch (place) {
@@ -35,54 +45,38 @@ const render = (container, element, place) => {
   }
 };
 
-const getRandomElement = (element) => {
-  return element[Math.floor(Math.random() * element.length)];
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
 };
 
-const getRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+const replace = (newComponent, oldComponent) => {
+  const parentElement = oldComponent.getElement().parentElement;
+  const newElement = newComponent.getElement();
+  const oldElement = oldComponent.getElement();
+
+  const isExistElements = !!(parentElement && newElement && oldElement);
+
+  if (isExistElements && parentElement.contains(oldElement)) {
+    parentElement.replaceChild(newElement, oldElement);
+  }
 };
 
-const getRandomDate = () => {
-  return Date.now() + 1 + Math.floor(Math.random() * (DAYS_IN_WEEK * HOURS_IN_DAY * SECONDS_IN_MINUNTE * MSSECONDS_IN_SECOND));
-};
-
-const formatDate = (date) => {
-  const formattingDate = new Date(date);
-
-  const day = formattingDate.getDate();
-  const month = formattingDate.getMonth();
-  const year = formattingDate.getFullYear();
-
-  return `${day}/${month + 1}/${year}`;
-};
-
-const formatTextDate = (date) => {
-  const textdate = new Date(date);
-
-  const day = textdate.getDate();
-  const month = textdate.getMonth();
-
-  return `${monthNames[month]} ${day}`;
-};
-
-const formatTime = (date) => {
-  const formattingTime = new Date(date);
-
-  const hours = formattingTime.getHours();
-  const minutes = formattingTime.getMinutes();
-
-  return `${hours}:${minutes}`;
+const remove = (component) => {
+  component.getElement().remove();
+  component.removeElement();
 };
 
 export {
   RenderPosition,
   createElement,
   render,
+  replace,
+  remove,
   getRandomElement,
   getRandomNumber,
   getRandomDate,
-  formatDate,
-  formatTextDate,
-  formatTime
+  getRandomBoolean,
 };

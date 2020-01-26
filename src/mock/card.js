@@ -1,11 +1,14 @@
 import {getRandomElement} from '../utils/utils.js';
 import {getRandomNumber} from '../utils/utils.js';
 import {getRandomDate} from '../utils/utils.js';
+import {getRandomBoolean} from '../utils/utils.js';
 
-const MAX_PRICE = 2000;
-const MAX_PICTURE = 5;
-const MAX_EXTRA = 2;
-const TRIP_COUNT = 3;
+const MaxValues = {
+  MAX_PRICE: 2000,
+  MAX_PICTURE: 5,
+  MAX_EXTRA: 2,
+  TRIP_COUNT: 3
+};
 
 const types = [
   `bus`,
@@ -89,13 +92,13 @@ const generateTravelCard = () => {
   return {
     type: getRandomElement(types),
     city: getRandomElement(cities),
-    img: fillPhotos(MAX_PICTURE),
+    img: fillPhotos(MaxValues.MAX_PICTURE),
     description: generateRandomDescription(),
     startDate: Math.min(firstValue, secondValue),
     endDate: Math.max(firstValue, secondValue),
     startTime: Math.min(firstValue, secondValue),
     endTime: Math.max(firstValue, secondValue),
-    price: getRandomNumber(0, MAX_PRICE),
+    price: getRandomNumber(0, MaxValues.MAX_PRICE),
     extra: extraOffers
   };
 };
@@ -108,7 +111,7 @@ const generateTravelCards = (count) => {
 
 const tripCard = generateTravelCard();
 
-const tripCards = generateTravelCards(TRIP_COUNT);
+const tripCards = generateTravelCards(MaxValues.TRIP_COUNT);
 
 const getTotalPrice = () => {
   let totalPrice = 0;
@@ -126,8 +129,7 @@ export {
   tripCard,
   tripCards,
   extraOffers,
-  MAX_EXTRA,
-  TRIP_COUNT,
+  MaxValues,
   getTotalPrice,
   getRandomNumber
 };

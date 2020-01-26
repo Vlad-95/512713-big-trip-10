@@ -206,7 +206,6 @@ export default class EditCard extends AbstractSmartComponent {
       this._flatpickr.destroy();
       this._flatpickr = null;
     }
-    
     const startDate = this.getElement().querySelector(`#event-start-time-1`);
     flatpickr(startDate, {
       allowInput: true,

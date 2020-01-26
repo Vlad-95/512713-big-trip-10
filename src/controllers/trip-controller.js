@@ -4,7 +4,7 @@ import SortComponent, {SortType} from '../components/sort.js';
 import EmptyList from '../components/no-cards.js';
 import {tripCards} from '../mock/card.js';
 import {render, RenderPosition} from '../utils/utils.js';
-import PointControllerComponent from '../controllers/point-controller'
+import PointControllerComponent from '../controllers/point-controller';
 
 const renderCards = (tripList, cards, onDataChange, onViewChange) => {
   return cards.map((card, index) => {
@@ -64,7 +64,7 @@ export default class TripController {
       return;
     }
 
-    this._cards = [].concat(this._cards.slice(0, index). newData, this._cards.slice(index + 1));
+    this._cards = [].concat(this._cards.slice(0, index), newData, this._cards.slice(index + 1));
 
     pointController.render(this._cards[index]);
   }
@@ -96,5 +96,5 @@ export default class TripController {
     this._tripControllers = renderCards(tripList, sortedCards, this._onDataChange, this._onViewChange);
 
     renderCards(tripList, sortedCards);
-  };
+  }
 }

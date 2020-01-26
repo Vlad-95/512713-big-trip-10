@@ -48,22 +48,26 @@ const extraOffers = [
   {
     type: `luggage`,
     title: `Add luggage`,
-    price: 10
+    price: 10,
+    isChecked: getRandomBoolean()
   },
   {
     type: `comfort`,
     title: `Switch to comfort`,
-    price: 9
+    price: 9,
+    isChecked: getRandomBoolean()
   },
   {
     type: `meal`,
     title: `Add meal`,
-    price: 150
+    price: 150,
+    isChecked: getRandomBoolean()
   },
   {
     type: `seats`,
     title: `Choose seats`,
-    price: 2
+    price: 2,
+    isChecked: getRandomBoolean()
   }
 ];
 
@@ -99,7 +103,8 @@ const generateTravelCard = () => {
     startTime: Math.min(firstValue, secondValue),
     endTime: Math.max(firstValue, secondValue),
     price: getRandomNumber(0, MaxValues.MAX_PRICE),
-    extra: extraOffers
+    extra: extraOffers,
+    isFavorite: getRandomBoolean()
   };
 };
 

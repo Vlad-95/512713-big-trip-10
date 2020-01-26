@@ -32,15 +32,11 @@ const createPhotoItem = (photoURL) => {
   return `<img class="event__photo" src="${photoURL}" alt="Event photo">`;
 };
 
-
-
 const createEditTemplate = (card) => {
-
 
   const photoItems = card.img.map((it) => createPhotoItem(it)).join(`\n`);
 
   const extraOffersList = createExtraTemplate(extraOffers);
-
 
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
@@ -178,7 +174,7 @@ export default class EditCard extends AbstractSmartComponent {
   }
 
   recoveryListeners() {
-    this.setFormSubmitHandler(this._formSubmitHandler)
+    this.setFormSubmitHandler(this._formSubmitHandler);
   }
 
   rerender() {
@@ -196,9 +192,9 @@ export default class EditCard extends AbstractSmartComponent {
     parseFormData(formData);
   }
 
-  /*setFavouriteButtonClickHandler(handler) {
-    this.getElement().querySelector('.event__favorite-btn').addEventListener(`click`, handler);
-  }*/
+  // setFavouriteButtonClickHandler(handler) {
+  //  this.getElement().querySelector('.event__favorite-btn').addEventListener(`click`, handler);
+  // }
 
   setFormSubmitHandler(handler) {
     this.getElement().addEventListener(`submit`, handler);

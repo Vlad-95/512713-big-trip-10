@@ -42,11 +42,11 @@ export default class PointController {
       this._replaceEditToCard();
     });
 
-    /*this._EditCardTravelComponent.setFavouriteButtonClickHandler(() => {
-      this._onDataChange(this, card, Object.assign({}, card, {
-        isFavorite: !card.isFavorite,
-      }));
-    });*/
+    // this._EditCardTravelComponent.setFavouriteButtonClickHandler(() => {
+    //  this._onDataChange(this, card, Object.assign({}, card, {
+    //    isFavorite: !card.isFavorite,
+    //  }));
+    // });
 
     if (oldCardTravelComponent && oldEditCardTravelComponent) {
       replace(this._CardTravelComponent, oldCardTravelComponent);

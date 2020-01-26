@@ -1,11 +1,14 @@
 import {getRandomElement} from '../utils/utils.js';
 import {getRandomNumber} from '../utils/utils.js';
 import {getRandomDate} from '../utils/utils.js';
+import {getRandomBoolean} from '../utils/utils.js';
 
-const MAX_PRICE = 2000;
-const MAX_PICTURE = 5;
-const MAX_EXTRA = 2;
-const TRIP_COUNT = 3;
+const MaxValues = {
+  MAX_PRICE: 2000,
+  MAX_PICTURE: 5,
+  MAX_EXTRA: 2,
+  TRIP_COUNT: 3
+};
 
 const types = [
   `bus`,
@@ -45,22 +48,26 @@ const extraOffers = [
   {
     type: `luggage`,
     title: `Add luggage`,
-    price: 10
+    price: 10,
+    isChecked: getRandomBoolean()
   },
   {
     type: `comfort`,
     title: `Switch to comfort`,
-    price: 9
+    price: 9,
+    isChecked: getRandomBoolean()
   },
   {
     type: `meal`,
     title: `Add meal`,
-    price: 150
+    price: 150,
+    isChecked: getRandomBoolean()
   },
   {
     type: `seats`,
     title: `Choose seats`,
-    price: 2
+    price: 2,
+    isChecked: getRandomBoolean()
   }
 ];
 
@@ -89,14 +96,15 @@ const generateTravelCard = () => {
   return {
     type: getRandomElement(types),
     city: getRandomElement(cities),
-    img: fillPhotos(MAX_PICTURE),
+    img: fillPhotos(MaxValues.MAX_PICTURE),
     description: generateRandomDescription(),
     startDate: Math.min(firstValue, secondValue),
     endDate: Math.max(firstValue, secondValue),
     startTime: Math.min(firstValue, secondValue),
     endTime: Math.max(firstValue, secondValue),
-    price: getRandomNumber(0, MAX_PRICE),
-    extra: extraOffers
+    price: getRandomNumber(0, MaxValues.MAX_PRICE),
+    extra: extraOffers,
+    isFavorite: getRandomBoolean()
   };
 };
 
@@ -108,7 +116,7 @@ const generateTravelCards = (count) => {
 
 const tripCard = generateTravelCard();
 
-const tripCards = generateTravelCards(TRIP_COUNT);
+const tripCards = generateTravelCards(MaxValues.TRIP_COUNT);
 
 const getTotalPrice = () => {
   let totalPrice = 0;
@@ -126,8 +134,7 @@ export {
   tripCard,
   tripCards,
   extraOffers,
-  MAX_EXTRA,
-  TRIP_COUNT,
+  MaxValues,
   getTotalPrice,
   getRandomNumber
 };

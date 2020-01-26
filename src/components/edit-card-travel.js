@@ -1,22 +1,50 @@
-import {tripCard} from '../mock/card.js';
-import {formatDate} from '../utils/utils.js';
-import AbstractComponent from "./abstract-component";
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/light.css';
+import {extraOffers, MaxValues, getRandomNumber} from "../mock/card";
+import {formatDate} from "../utils/data-time";
+import AbstractSmartComponent from "./abstract-smart-component";
 
+
+const testChecked = (value) => {
+  return value ? `checked` : ``;
+};
+
+const createExtraTemplate = (offers) => {
+  return offers
+    .map((offer) => {
+      return (
+        `<div class="event__offer-selector">
+          <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offer.type}-1" type="checkbox" name="event-offer-${offer.type}" ${testChecked(offer.isChecked)}>
+          <label class="event__offer-label" for="event-offer-${offer.type}-1">
+            <span class="event__offer-title">${offer.title}</span>
+              &plus;
+              euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
+          </label>
+        </div>`
+      );
+    })
+    .slice(0, getRandomNumber(0, MaxValues.MAX_EXTRA))
+    .join(``);
+};
 
 const createPhotoItem = (photoURL) => {
   return `<img class="event__photo" src="${photoURL}" alt="Event photo">`;
 };
 
-const photoItems = tripCard.img.map((it) => createPhotoItem(it)).join(`\n`);
+const createEditTemplate = (card) => {
 
-const createEditTemplate = () => {
+  const photoItems = card.img.map((it) => createPhotoItem(it)).join(`\n`);
+
+  const extraOffersList = createExtraTemplate(extraOffers);
+
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
       <header class="event__header">
         <div class="event__type-wrapper">
           <label class="event__type  event__type-btn" for="event-type-toggle-1">
             <span class="visually-hidden">Choose event type</span>
-            <img class="event__type-icon" width="17" height="17" src="img/icons/${tripCard.type}.png" alt="Event type icon">
+            <img class="event__type-icon" width="17" height="17" src="img/icons/${card.type}.png" alt="Event type icon">
           </label>
           <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
           <div class="event__type-list">
@@ -70,9 +98,9 @@ const createEditTemplate = () => {
         </div>
         <div class="event__field-group  event__field-group--destination">
           <label class="event__label  event__type-output" for="event-destination-1">
-            Sightseeing at
+            ${card.type} at
           </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${tripCard.city}" list="destination-list-1">
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${card.city}" list="destination-list-1">
           <datalist id="destination-list-1">
             <option value="Amsterdam"></option>
             <option value="Geneva"></option>
@@ -84,19 +112,19 @@ const createEditTemplate = () => {
           <label class="visually-hidden" for="event-start-time-1">
             From
           </label>
-          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${formatDate(tripCard.startDate)}">
+          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${formatDate(card.startDate)}">
           &mdash;
           <label class="visually-hidden" for="event-end-time-1">
             To
           </label>
-          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${formatDate(tripCard.endDate)}">
+          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${formatDate(card.endDate)}">
         </div>
         <div class="event__field-group  event__field-group--price">
           <label class="event__label" for="event-price-1">
             <span class="visually-hidden">Price</span>
              &euro;
           </label>
-          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${tripCard.price}">
+          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${card.price}">
         </div>
         <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
         <button class="event__reset-btn" type="reset">Cancel</button>
@@ -105,51 +133,12 @@ const createEditTemplate = () => {
         <section class="event__section  event__section--offers">
           <h3 class="event__section-title  event__section-title--offers">Offers</h3>
           <div class="event__available-offers">
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
-              <label class="event__offer-label" for="event-offer-luggage-1">
-                <span class="event__offer-title">Add luggage</span>
-                  &plus; &euro;&nbsp;
-                <span class="event__offer-price">30</span>
-              </label>
-            </div>
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked>
-            <label class="event__offer-label" for="event-offer-comfort-1">
-              <span class="event__offer-title">Switch to comfort class</span>
-                &plus; &euro;&nbsp;
-              <span class="event__offer-price">100</span>
-            </label>
+            ${extraOffersList}
           </div>
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
-            <label class="event__offer-label" for="event-offer-meal-1">
-              <span class="event__offer-title">Add meal</span>
-               &plus; &euro;&nbsp;
-              <span class="event__offer-price">15</span>
-            </label>
-          </div>
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
-            <label class="event__offer-label" for="event-offer-seats-1">
-              <span class="event__offer-title">Choose seats</span>
-                &plus; &euro;&nbsp;
-              <span class="event__offer-price">5</span>
-            </label>
-          </div>
-          <div class="event__offer-selector">
-            <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-            <label class="event__offer-label" for="event-offer-train-1">
-              <span class="event__offer-title">Travel by train</span>
-                &plus; &euro;&nbsp;
-              <span class="event__offer-price">40</span>
-            </label>
-          </div>
-        </div>
         </section>
         <section class="event__section  event__section--destination">
           <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-          <p class="event__destination-description">${tripCard.description}</p>
+          <p class="event__destination-description">${card.description}</p>
           <div class="event__photos-container">
             <div class="event__photos-tape"> 
               ${photoItems}
@@ -161,13 +150,80 @@ const createEditTemplate = () => {
   );
 };
 
+const parseFormData = (formData) => {
+  return {
+    type: formData.get(`event-type`),
+    city: formData.get(`event-destination`),
+    price: formData.get(`event-price`),
+    isFavorite: formData.get(`event-favorite`),
+  };
+};
 
-export default class EditCard extends AbstractComponent {
-  getTemplate() {
-    return createEditTemplate();
+export default class EditCard extends AbstractSmartComponent {
+  constructor(card) {
+    super();
+
+    this._card = card;
+    this._formSubmitHandler = null;
+    this._flatpickr = null;
+
+    this._applyFlatpickr();
   }
+  getTemplate() {
+    return createEditTemplate(this._card);
+  }
+
+  recoveryListeners() {
+    this.setFormSubmitHandler(this._formSubmitHandler);
+  }
+
+  rerender() {
+    super.rerender();
+  }
+
+  reset() {
+    this.rerender();
+  }
+
+  getData() {
+    const form = this.getElement();
+    const formData = new FormData(form);
+
+    parseFormData(formData);
+  }
+
+  // setFavouriteButtonClickHandler(handler) {
+  //  this.getElement().querySelector('.event__favorite-btn').addEventListener(`click`, handler);
+  // }
 
   setFormSubmitHandler(handler) {
     this.getElement().addEventListener(`submit`, handler);
+    this._formSubmitHandler = handler;
+  }
+
+  _applyFlatpickr() {
+    if (this._flatpickr) {
+      this._flatpickr.destroy();
+      this._flatpickr = null;
+    }
+    const startDate = this.getElement().querySelector(`#event-start-time-1`);
+    flatpickr(startDate, {
+      allowInput: true,
+      altInput: true,
+      enableTime: true,
+      dataFormat: `d/m/Y H:i`,
+      altFormat: `d/m/Y H:i`,
+      defaultDate: this._card.startDate,
+    });
+
+    const endDate = this.getElement().querySelector(`#event-end-time-1`);
+    flatpickr(endDate, {
+      allowInput: true,
+      altInput: true,
+      enableTime: true,
+      dataFormat: `d/m/Y H:i`,
+      altFormat: `d/m/Y H:i`,
+      defaultDate: this._card.endDate,
+    });
   }
 }
